@@ -1,4 +1,4 @@
-function number_format(number, decimals, dec_point, thousands_sep) {
+function number_format(number, decimals, dec_point, thousands_sep , round) {
   //  discuss at: http://phpjs.org/functions/number_format/
   // original by: Jonas Raoni Soares Silva (http://www.jsfromhell.com)
   // improved by: Kevin van Zonneveld (http://kevin.vanzonneveld.net)
@@ -58,8 +58,13 @@ function number_format(number, decimals, dec_point, thousands_sep) {
     s = '',
     toFixedFix = function(n, prec) {
       var k = Math.pow(10, prec);
+      if(round){
       return '' + (Math.round(n * k) / k)
         .toFixed(prec);
+      }else{
+        return '' + ((Math.floor(n * k) / k) / 100)
+        .toFixed(prec);
+      }
     };
   // Fix for IE parseFloat(0.55).toFixed(0) = 0;
   s = (prec ? toFixedFix(n, prec) : '' + Math.round(n))
